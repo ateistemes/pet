@@ -14,4 +14,17 @@
         {% endfor %}
     </small>
     <p>{{ post.body | linebreaks }}</p>
+    <h2>Comments</h2>
+    <ul>
+        {% for com in comment %}
+            <li>{{ com.user }} - {{ com.text }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add comment</h2>
+    <form method="post" action="{% url 'blog_detail' post.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Comment</button>
+    </form>
 {% endblock page_content %}

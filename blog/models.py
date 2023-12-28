@@ -24,3 +24,19 @@ class Comment(models.Model):
     post = models.ForeignKey("Post", on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.user} on '{self.post}'"
+# blog/models.py
+
+
+
+class CustomUser(User):
+    bio = models.TextField(blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    # Add other fields for the user profile as needed
+    # Example:
+    # profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'

@@ -1,35 +1,63 @@
 body {
-    background: darkgrey;
+    background: #1f1f1f;
+    color: #fff; /* Set text color to white for better contrast */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Use a clean sans-serif font */
 }
-aside {
-    float: left;
-    background: ghostwhite;
-    width: 12%;
-    padding: 2%;
-    color: green;
-    border-right: 5px solid #4d4d4d;
-    border-top: 5px solid #4d4d4d;
-    height: 100vh;
+
+.container {
+    max-width: 800px; /* Limit content width for better readability */
+    margin: 0 auto; /* Center the content */
 }
-aside img {
-    width: 80px;
-    float: left;
+
+/* Styling for Blog Posts */
+.post {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Add rounded corners */
+    background: #333; /* Darken the background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
 }
-aside .logo {
-    color: brown;
-    font-size: 20px;
-    margin-left: 10px;
+
+.post h3 {
+    font-size: 24px;
+}
+
+.post p {
+    color: #ccc; /* Lighten the text color */
+}
+
+/* Styling for Links */
+h3 a,
+.small a {
+    color: #3498db; /* Change link color for better visibility */
+}
+
+/* Styling for Small Text */
+small {
+    color: #777;
+}
+
+/* Styling for Detail Class */
+.detail {
+    color: #4caf50; /* Use a shade of green for detail text */
+}
+/* Styling for Authentication Section */
+.auth-section {
+    margin-top: 10px;
+}
+
+.auth-section p {
+    margin-bottom: 0;
+}
+
+.auth-section a {
+    color: #3498db;
+    text-decoration: none;
     font-weight: bold;
 }
-aside h3 {
-    margin-top 50px;
-    font-size: 20px;
-}
-aside ul {
-    list-style: none;
-}
-aside ul li {
-    color: green;
-    margin-top: 15px;
 
+.auth-section a:hover {
+    text-decoration: underline;
+    color: #258cd1;
 }

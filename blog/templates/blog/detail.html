@@ -5,19 +5,21 @@
 {% endblock page_title %}
 
 {% block page_content %}
-    <small>
+
         {{ post.created_on.date }} | Categories:
         {% for category in post.categories.all %}
+            <article class="detail">
             <a href="{% url 'blog_category' category.name %}">
                 {{ category.name }}
             </a>
+            </article>
         {% endfor %}
-    </small>
+
     <p>{{ post.body | linebreaks }}</p>
     <h2>Comments</h2>
     <ul>
         {% for com in comment %}
-            <li>{{ com.user }} - {{ com.text }}</li>
+            <li>{{ com.user.username }} - {{ com.text }}</li>
         {% endfor %}
     </ul>
 

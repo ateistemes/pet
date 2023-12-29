@@ -47,25 +47,29 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('blog:login')
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form' : form})
 
-class CustomLoginView(LoginView):
+# class CustomLoginView(LoginView):
+#     template_name = 'registration/login.html'
+#
+#
+# class CustomLogoutView(LogoutView):
+#     template_name = 'registration/logout.html'
+
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
+
+
+class MyLoginView(LoginView):
+    redirect_authenticated_user = True
     template_name = 'registration/login.html'
 
-class CustomLogoutView(LogoutView):
-    template_name = 'registration/logout.html'
+    def get_success_url(self):
+        return reverse_lazy('blog:blog_index')
 
 
-@login_required
-def profile_view(request):
-    # Assuming you have a user profile associated with the user model
-    user_profile = request.user.profile  # Replace 'profile' with the actual related name or attribute
-
-    context = {
-        'user_profile': user_profile,
-    }
-
-    return render(request, 'profile.html', context)
+class MyLogoutView(LogoutView):
+    redirect_field_name = True

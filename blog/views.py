@@ -1,16 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Post, Comment
 from blog.forms import CommentForm
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
-
-# Create your views here.
 
 def blog_index(request):
     posts = Post.objects.all().order_by("-created_on")
     context = {
-        "posts" : posts,
+        "posts": posts,
     }
     return render(request, "blog/index.html", context)
 
@@ -19,10 +14,11 @@ def blog_category(request, category):
         categories__name__contains=category
     ).order_by("-created_on")
     context = {
-        "category" : category,
-        "posts" : posts,
+        "category": category,
+        "posts": posts,
     }
     return render(request, "blog/category.html", context)
+
 def blog_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comment = Comment.objects.filter(post=post)
@@ -31,45 +27,15 @@ def blog_detail(request, pk):
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
+            new_comment.user = request.user
             new_comment.save()
-            return redirect('blog_detail', pk = pk)
+            return redirect('blog:detail', pk = pk)
     else:
         Comment_form = CommentForm()
+
     context = {
         "post" : post,
         "comment" : comment,
         "form" : Comment_form,
     }
     return render(request, "blog/detail.html", context)
-
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('blog:login')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form' : form})
-
-# class CustomLoginView(LoginView):
-#     template_name = 'registration/login.html'
-#
-#
-# class CustomLogoutView(LogoutView):
-#     template_name = 'registration/logout.html'
-
-from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import reverse_lazy
-
-
-class MyLoginView(LoginView):
-    redirect_authenticated_user = True
-    template_name = 'registration/login.html'
-
-    def get_success_url(self):
-        return reverse_lazy('blog:blog_index')
-
-
-class MyLogoutView(LogoutView):
-    redirect_field_name = True

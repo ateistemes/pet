@@ -10,7 +10,7 @@
             {{ post.created_on.date }} | Categories:
             {% for category in post.categories.all %}
                 <span class="badge badge-info">
-                    <a href="{% url 'blog_category' category.name %}" class="text-white">
+                    <a href="{% url 'blog:category' category.name %}" class="text-white">
                         {{ category.name }}
                     </a>
                 </span>
@@ -37,7 +37,7 @@
 
             <div class="add-comment-form">
                 <h2>Add a Comment</h2>
-                <form method="post" action="{% url 'blog_detail' post.id %}">
+                <form method="post" action="{% url 'blog:detail' post.id %}">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary">Add Comment</button>
